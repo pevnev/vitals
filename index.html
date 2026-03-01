@@ -3,7 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vitalis — Live Better, Think Clearer</title>
+  <title>Vitalis — Evidence-Based Nutrition, Supplements & Biohacking</title>
+  <meta name="description" content="Science-backed guides on nutrition, supplements, biohacking protocols and health tech — curated for people serious about living longer, thinking clearer and performing better." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://vitalis.health/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Vitalis" />
+  <meta property="og:title" content="Vitalis — Evidence-Based Nutrition, Supplements & Biohacking" />
+  <meta property="og:description" content="Science-backed guides on nutrition, supplements, biohacking protocols and health tech — curated for people serious about living longer, thinking clearer and performing better." />
+  <meta property="og:url" content="https://vitalis.health/" />
+  <meta property="og:image" content="https://vitalis.health/images/oura-ring-gen4.jpg" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Vitalis — Evidence-Based Nutrition, Supplements & Biohacking" />
+  <meta name="twitter:description" content="Science-backed guides on nutrition, supplements, biohacking protocols and health tech." />
+  <meta name="twitter:image" content="https://vitalis.health/images/oura-ring-gen4.jpg" />
   <style>
     /* ── Reset & Base ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -426,11 +443,37 @@
     }
     .social-icon:hover { background: var(--green-light); }
   </style>
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "name": "Vitalis",
+        "url": "https://vitalis.health/",
+        "description": "Science-backed health content for nutrition, supplements, biohacking and longevity",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://vitalis.health/search?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      },
+      {
+        "@type": "Organization",
+        "name": "Vitalis",
+        "url": "https://vitalis.health/",
+        "description": "Evidence-based health content for people serious about longevity, nutrition and biohacking"
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
 
 <!-- ═══════════════ NAVBAR ═══════════════ -->
-<nav class="navbar">
+<nav class="navbar" aria-label="Main navigation">
   <div class="container nav-inner">
     <a href="#" class="nav-logo">
       <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -452,6 +495,7 @@
   </div>
 </nav>
 
+<main id="main-content">
 <!-- ═══════════════ HERO ═══════════════ -->
 <section class="hero">
   <div class="container hero-inner">
@@ -525,7 +569,7 @@
         </div>
         <div class="fc-body">
           <span class="fc-tag">Biohacking</span>
-          <h2 class="fc-title">Zone 2 Cardio: The Most Underrated Tool for Longevity</h2>
+          <h3 class="fc-title">Zone 2 Cardio: The Most Underrated Tool for Longevity</h3>
           <p class="fc-desc">Dr. Peter Attia and other longevity researchers are unanimous: low-intensity, sustained cardio does something magic for mitochondria, VO2 max, and metabolic health that no other modality replicates.</p>
           <div class="fc-meta">
             <div class="fc-avatar">JL</div>
@@ -544,7 +588,7 @@
           <div class="fc-small-img" style="background:#e8f0fe">🧠</div>
           <div class="fc-small-body">
             <span class="fc-small-tag">Supplements</span>
-            <div class="fc-small-title">Lion's Mane in 2026: What the New Clinical Trials Actually Show</div>
+            <h3 class="fc-small-title">Lion's Mane in 2026: What the New Clinical Trials Actually Show</h3>
             <div class="fc-small-meta">5 min read · Feb 25</div>
           </div>
         </div>
@@ -552,7 +596,7 @@
           <div class="fc-small-img" style="background:#fff8ec">🌅</div>
           <div class="fc-small-body">
             <span class="fc-small-tag">Biohacking</span>
-            <div class="fc-small-title">Morning Light Protocol: Why 10 Minutes Outside Changes Everything</div>
+            <h3 class="fc-small-title">Morning Light Protocol: Why 10 Minutes Outside Changes Everything</h3>
             <div class="fc-small-meta">4 min read · Feb 23</div>
           </div>
         </div>
@@ -560,7 +604,7 @@
           <div class="fc-small-img" style="background:#f3e8ff">📊</div>
           <div class="fc-small-body">
             <span class="fc-small-tag">Gadgets</span>
-            <div class="fc-small-title">CGM Without Diabetes: A 30-Day Experiment on Metabolic Awareness</div>
+            <h3 class="fc-small-title">CGM Without Diabetes: A 30-Day Experiment on Metabolic Awareness</h3>
             <div class="fc-small-meta">7 min read · Feb 20</div>
           </div>
         </div>
@@ -568,7 +612,7 @@
           <div class="fc-small-img" style="background:#e0f7f4">🥩</div>
           <div class="fc-small-body">
             <span class="fc-small-tag">Nutrition</span>
-            <div class="fc-small-title">Protein Timing: Is It Actually Important or Overblown Bro Science?</div>
+            <h3 class="fc-small-title">Protein Timing: Is It Actually Important or Overblown Bro Science?</h3>
             <div class="fc-small-meta">6 min read · Feb 18</div>
           </div>
         </div>
@@ -900,6 +944,8 @@
     <div class="nl-note">14,000+ readers · Unsubscribe anytime · No spam, ever</div>
   </div>
 </div>
+
+</main>
 
 <!-- ═══════════════ FOOTER ═══════════════ -->
 <footer>
