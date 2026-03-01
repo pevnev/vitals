@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vitalis — Live Better, Think Clearer</title>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #ffffff;
+      color: #1a1a1a;
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    /* ── Typography ── */
+    h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
+    h1 { font-size: clamp(2.2rem, 5vw, 3.8rem); }
+    h2 { font-size: clamp(1.6rem, 3vw, 2.4rem); }
+    h3 { font-size: 1.15rem; }
+
+    /* ── Layout Helpers ── */
+    .container { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
+    .section { padding: 80px 0; }
+    .section-alt { background: #f9f9f7; }
+
+    /* ── Color Tokens ── */
+    :root {
+      --green: #3d8b6e;
+      --green-light: #e8f5ef;
+      --green-mid: #c5e8d8;
+      --gray-50: #f9f9f7;
+      --gray-100: #f1f1ee;
+      --gray-200: #e4e4df;
+      --gray-400: #9a9a94;
+      --gray-600: #5a5a55;
+      --gray-800: #2a2a27;
+    }
+
+    /* ══════════════════════════════
+       NAVBAR
+    ══════════════════════════════ */
+    .navbar {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+    .nav-logo {
+      font-size: 1.35rem; font-weight: 800; letter-spacing: -0.5px;
+      color: var(--green);
+    }
+    .nav-logo span { color: var(--gray-800); }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      font-size: 0.875rem; font-weight: 500; color: var(--gray-600);
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--green); }
+    .nav-cta {
+      background: var(--green); color: #fff !important;
+      padding: 8px 18px; border-radius: 8px; font-weight: 600;
+      font-size: 0.875rem; transition: opacity .2s;
+    }
+    .nav-cta:hover { opacity: 0.88; }
+
+    /* ══════════════════════════════
+       HERO
+    ══════════════════════════════ */
+    .hero {
+      padding: 96px 0 80px;
+      background: linear-gradient(150deg, #fff 55%, var(--green-light) 100%);
+      overflow: hidden; position: relative;
+    }
+    .hero-inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center;
+    }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--green-light); color: var(--green);
+      font-size: 0.78rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+      padding: 6px 14px; border-radius: 99px; margin-bottom: 20px;
+    }
+    .hero-tag .dot { width: 6px; height: 6px; background: var(--green); border-radius: 50%; }
+    .hero h1 { color: var(--gray-800); margin-bottom: 20px; letter-spacing: -1.5px; }
+    .hero h1 em { color: var(--green); font-style: normal; }
+    .hero-desc { font-size: 1.05rem; color: var(--gray-600); max-width: 420px; margin-bottom: 36px; }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--green); color: #fff;
+      padding: 13px 28px; border-radius: 10px; font-weight: 600;
+      font-size: 0.95rem; transition: opacity .2s; display: inline-block;
+    }
+    .btn-primary:hover { opacity: 0.88; }
+    .btn-secondary {
+      background: transparent; color: var(--gray-800);
+      padding: 13px 28px; border-radius: 10px; font-weight: 600;
+      font-size: 0.95rem; border: 1.5px solid var(--gray-200);
+      transition: border-color .2s; display: inline-block;
+    }
+    .btn-secondary:hover { border-color: var(--green); color: var(--green); }
+
+    /* Hero visual card */
+    .hero-visual {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+    }
+    .hv-card {
+      border-radius: 16px; padding: 20px 18px;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .hv-card-lg { grid-column: span 2; }
+    .hv-card .hv-icon { font-size: 1.6rem; margin-bottom: 4px; }
+    .hv-card h4 { font-size: 0.9rem; font-weight: 700; }
+    .hv-card p { font-size: 0.78rem; color: var(--gray-600); }
+    .hv-c1 { background: var(--green-light); }
+    .hv-c2 { background: #f0f4ff; }
+    .hv-c3 { background: #fff8ec; }
+    .hv-c4 { background: var(--gray-100); padding: 18px; }
+    .hv-stat { font-size: 1.8rem; font-weight: 800; color: var(--green); }
+    .hv-stat-row { display: flex; gap: 24px; }
+    .hv-stat-item { display: flex; flex-direction: column; }
+    .hv-stat-label { font-size: 0.72rem; color: var(--gray-400); text-transform: uppercase; letter-spacing: .06em; }
+
+    /* ══════════════════════════════
+       CATEGORY PILLS
+    ══════════════════════════════ */
+    .categories { padding: 36px 0; border-bottom: 1px solid var(--gray-200); }
+    .cat-pills { display: flex; gap: 10px; flex-wrap: wrap; }
+    .cat-pill {
+      display: flex; align-items: center; gap: 8px;
+      padding: 9px 18px; border-radius: 99px;
+      border: 1.5px solid var(--gray-200); font-size: 0.85rem; font-weight: 500;
+      cursor: pointer; transition: all .2s; color: var(--gray-600);
+    }
+    .cat-pill:hover, .cat-pill.active {
+      border-color: var(--green); background: var(--green-light); color: var(--green);
+    }
+    .cat-pill .pill-icon { font-size: 1rem; }
+
+    /* ══════════════════════════════
+       FEATURED ARTICLE (large)
+    ══════════════════════════════ */
+    .featured-grid {
+      display: grid; grid-template-columns: 1.4fr 1fr; gap: 32px; margin-bottom: 32px;
+    }
+    .featured-card {
+      border-radius: 20px; overflow: hidden;
+      border: 1px solid var(--gray-200); display: flex; flex-direction: column;
+      transition: transform .25s, box-shadow .25s;
+    }
+    .featured-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,.08); }
+    .fc-img {
+      height: 260px; background: var(--green-light);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 4rem; position: relative; overflow: hidden;
+    }
+    .fc-img-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,.18), transparent);
+    }
+    .fc-body { padding: 24px; flex: 1; display: flex; flex-direction: column; gap: 10px; }
+    .fc-tag {
+      display: inline-block; background: var(--green-light); color: var(--green);
+      font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .07em; padding: 4px 10px; border-radius: 99px;
+      align-self: flex-start;
+    }
+    .fc-title { font-size: 1.25rem; font-weight: 700; color: var(--gray-800); }
+    .fc-desc { font-size: 0.875rem; color: var(--gray-600); flex: 1; }
+    .fc-meta { display: flex; align-items: center; gap: 12px; font-size: 0.78rem; color: var(--gray-400); margin-top: 8px; }
+    .fc-avatar {
+      width: 28px; height: 28px; border-radius: 50%; background: var(--green-mid);
+      display: flex; align-items: center; justify-content: center; font-size: 0.75rem;
+    }
+
+    /* small card stack */
+    .fc-stack { display: flex; flex-direction: column; gap: 16px; }
+    .fc-small {
+      border-radius: 14px; border: 1px solid var(--gray-200);
+      display: flex; gap: 14px; padding: 16px; align-items: flex-start;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .fc-small:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.06); }
+    .fc-small-img {
+      width: 72px; height: 72px; border-radius: 10px; background: var(--green-light);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.8rem; flex-shrink: 0;
+    }
+    .fc-small-body { flex: 1; }
+    .fc-small-tag {
+      display: inline-block; font-size: 0.65rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .06em;
+      color: var(--green); margin-bottom: 4px;
+    }
+    .fc-small-title { font-size: 0.9rem; font-weight: 600; color: var(--gray-800); line-height: 1.35; }
+    .fc-small-meta { font-size: 0.72rem; color: var(--gray-400); margin-top: 6px; }
+
+    /* ══════════════════════════════
+       SECTION HEADERS
+    ══════════════════════════════ */
+    .section-header {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      margin-bottom: 36px; gap: 16px;
+    }
+    .section-label {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--green); margin-bottom: 6px;
+    }
+    .section-header h2 { letter-spacing: -0.5px; color: var(--gray-800); }
+    .see-all {
+      font-size: 0.875rem; font-weight: 600; color: var(--green);
+      white-space: nowrap; border-bottom: 1.5px solid var(--green-mid);
+      padding-bottom: 2px; transition: border-color .2s;
+    }
+    .see-all:hover { border-color: var(--green); }
+
+    /* ══════════════════════════════
+       TOPIC CARDS (category sections)
+    ══════════════════════════════ */
+    .topic-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+    }
+    .topic-card {
+      border-radius: 16px; border: 1px solid var(--gray-200);
+      padding: 22px; transition: transform .2s, box-shadow .2s;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .topic-card:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,.07); }
+    .tc-icon {
+      width: 44px; height: 44px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; margin-bottom: 4px;
+    }
+    .tc-green { background: var(--green-light); }
+    .tc-blue  { background: #e8f0fe; }
+    .tc-amber { background: #fff3e0; }
+    .tc-purple{ background: #f3e8ff; }
+    .tc-red   { background: #ffe8e8; }
+    .tc-teal  { background: #e0f7f4; }
+    .topic-card h3 { font-size: 1rem; font-weight: 700; color: var(--gray-800); }
+    .topic-card p  { font-size: 0.82rem; color: var(--gray-600); }
+    .tc-link { font-size: 0.8rem; font-weight: 600; color: var(--green); margin-top: auto; }
+
+    /* ══════════════════════════════
+       GADGETS SHOWCASE
+    ══════════════════════════════ */
+    .gadgets-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px;
+    }
+    .gadget-card {
+      border-radius: 16px; border: 1px solid var(--gray-200);
+      overflow: hidden; transition: transform .2s, box-shadow .2s;
+    }
+    .gadget-card:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(0,0,0,.07); }
+    .gc-img {
+      height: 130px; display: flex; align-items: center; justify-content: center;
+      font-size: 3rem; background: var(--gray-50);
+    }
+    .gc-body { padding: 16px; }
+    .gc-brand { font-size: 0.68rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .08em; color: var(--gray-400); margin-bottom: 4px; }
+    .gc-name { font-size: 0.92rem; font-weight: 700; color: var(--gray-800); margin-bottom: 6px; }
+    .gc-score { display: flex; align-items: center; gap: 6px; font-size: 0.78rem; }
+    .gc-stars { color: #f5a623; letter-spacing: 1px; }
+    .gc-score-num { font-weight: 600; }
+    .gc-badge {
+      display: inline-block; margin-top: 10px; padding: 4px 10px;
+      border-radius: 6px; font-size: 0.7rem; font-weight: 700;
+    }
+    .badge-pick { background: var(--green-light); color: var(--green); }
+    .badge-new  { background: #e8f0fe; color: #3a5bd9; }
+    .badge-hot  { background: #ffe8e0; color: #c44a1a; }
+    .badge-value{ background: #fff3e0; color: #b86a00; }
+
+    /* ══════════════════════════════
+       SUPPLEMENTS TABLE STRIP
+    ══════════════════════════════ */
+    .supps-list { display: flex; flex-direction: column; gap: 0; }
+    .supp-row {
+      display: grid; grid-template-columns: 48px 1fr 160px 120px 100px;
+      align-items: center; gap: 16px;
+      padding: 18px 0; border-bottom: 1px solid var(--gray-100);
+    }
+    .supp-row:last-child { border-bottom: none; }
+    .supp-num { font-size: 0.85rem; font-weight: 700; color: var(--gray-400); text-align: center; }
+    .supp-icon-wrap {
+      width: 44px; height: 44px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center; font-size: 1.4rem;
+    }
+    .supp-name { font-weight: 700; font-size: 0.95rem; color: var(--gray-800); }
+    .supp-desc { font-size: 0.78rem; color: var(--gray-400); margin-top: 2px; }
+    .supp-benefit {
+      display: flex; gap: 6px; flex-wrap: wrap;
+    }
+    .supp-chip {
+      padding: 3px 9px; border-radius: 99px; font-size: 0.68rem; font-weight: 600;
+      background: var(--gray-100); color: var(--gray-600);
+    }
+    .supp-dose { font-size: 0.82rem; color: var(--gray-600); }
+    .supp-evidence {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 0.75rem; font-weight: 700;
+    }
+    .ev-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .ev-high   .ev-dot { background: #3d8b6e; }
+    .ev-med    .ev-dot { background: #f5a623; }
+    .ev-emerg  .ev-dot { background: #9b59b6; }
+
+    /* ══════════════════════════════
+       BIOHACKING PROTOCOLS
+    ══════════════════════════════ */
+    .bio-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;
+    }
+    .bio-card {
+      border-radius: 18px; padding: 28px; position: relative; overflow: hidden;
+      border: 1px solid var(--gray-200); transition: transform .2s, box-shadow .2s;
+    }
+    .bio-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,.07); }
+    .bio-badge {
+      position: absolute; top: 20px; right: 20px;
+      font-size: 0.68rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .06em; padding: 4px 10px; border-radius: 6px;
+    }
+    .bb-beginner { background: var(--green-light); color: var(--green); }
+    .bb-advanced { background: #f3e8ff; color: #7b2fb5; }
+    .bb-moderate { background: #fff3e0; color: #b86a00; }
+    .bio-icon { font-size: 2.2rem; margin-bottom: 14px; }
+    .bio-card h3 { font-size: 1.08rem; font-weight: 700; margin-bottom: 8px; color: var(--gray-800); }
+    .bio-card p { font-size: 0.85rem; color: var(--gray-600); margin-bottom: 16px; }
+    .bio-steps { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .bio-steps li {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 0.82rem; color: var(--gray-600);
+    }
+    .bio-step-num {
+      min-width: 22px; height: 22px; border-radius: 50%;
+      background: var(--green-light); color: var(--green);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.68rem; font-weight: 800; flex-shrink: 0;
+    }
+
+    /* ══════════════════════════════
+       STATS BANNER
+    ══════════════════════════════ */
+    .stats-banner {
+      background: var(--green); color: #fff;
+      border-radius: 24px; padding: 48px 56px;
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 32px; margin: 80px 0;
+    }
+    .stat-item { display: flex; flex-direction: column; gap: 4px; }
+    .stat-num { font-size: 2.4rem; font-weight: 800; letter-spacing: -1px; }
+    .stat-label { font-size: 0.85rem; opacity: 0.75; }
+
+    /* ══════════════════════════════
+       NEWSLETTER
+    ══════════════════════════════ */
+    .newsletter {
+      background: var(--gray-50);
+      border-radius: 24px; padding: 56px;
+      text-align: center; margin-bottom: 80px;
+    }
+    .newsletter .nl-icon { font-size: 2.5rem; margin-bottom: 16px; }
+    .newsletter h2 { margin-bottom: 10px; letter-spacing: -0.5px; }
+    .newsletter p { color: var(--gray-600); max-width: 460px; margin: 0 auto 28px; }
+    .nl-form { display: flex; gap: 10px; max-width: 420px; margin: 0 auto; }
+    .nl-input {
+      flex: 1; padding: 12px 18px; border: 1.5px solid var(--gray-200);
+      border-radius: 10px; font-size: 0.9rem; outline: none;
+      background: #fff; transition: border-color .2s;
+    }
+    .nl-input:focus { border-color: var(--green); }
+    .nl-btn {
+      background: var(--green); color: #fff;
+      padding: 12px 22px; border-radius: 10px; border: none;
+      font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: opacity .2s;
+    }
+    .nl-btn:hover { opacity: 0.88; }
+    .nl-note { font-size: 0.75rem; color: var(--gray-400); margin-top: 12px; }
+
+    /* ══════════════════════════════
+       FOOTER
+    ══════════════════════════════ */
+    footer {
+      border-top: 1px solid var(--gray-200);
+      padding: 56px 0 32px;
+    }
+    .footer-grid {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px;
+      margin-bottom: 48px;
+    }
+    .footer-brand { max-width: 280px; }
+    .footer-logo { font-size: 1.3rem; font-weight: 800; color: var(--green); margin-bottom: 10px; }
+    .footer-logo span { color: var(--gray-800); }
+    .footer-brand p { font-size: 0.85rem; color: var(--gray-400); line-height: 1.6; }
+    .footer-col h4 { font-size: 0.85rem; font-weight: 700; margin-bottom: 14px; color: var(--gray-800); }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col li a { font-size: 0.82rem; color: var(--gray-400); transition: color .2s; }
+    .footer-col li a:hover { color: var(--green); }
+    .footer-bottom {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-top: 24px; border-top: 1px solid var(--gray-100);
+      font-size: 0.78rem; color: var(--gray-400);
+    }
+    .footer-socials { display: flex; gap: 14px; }
+    .social-icon {
+      width: 32px; height: 32px; border-radius: 8px; background: var(--gray-100);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem; transition: background .2s;
+    }
+    .social-icon:hover { background: var(--green-light); }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════ NAVBAR ═══════════════ -->
+<nav class="navbar">
+  <div class="container nav-inner">
+    <div class="nav-logo">Vita<span>lis</span></div>
+    <ul class="nav-links">
+      <li><a href="#nutrition">Nutrition</a></li>
+      <li><a href="#supplements">Supplements</a></li>
+      <li><a href="#biohacking">Biohacking</a></li>
+      <li><a href="#gadgets">Gadgets</a></li>
+      <li><a href="#" class="nav-cta">Newsletter</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section class="hero">
+  <div class="container hero-inner">
+    <div>
+      <div class="hero-tag"><span class="dot"></span> Evidence-Based Health Content</div>
+      <h1>Live Better.<br><em>Think Clearer.</em><br>Age Slower.</h1>
+      <p class="hero-desc">Science-backed guides on nutrition, supplements, biohacking protocols, and the latest health tech — curated for people serious about optimizing how they feel and perform.</p>
+      <div class="hero-actions">
+        <a href="#nutrition" class="btn-primary">Explore Articles</a>
+        <a href="#" class="btn-secondary">Take the Quiz →</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hv-card hv-c1 hv-card-lg">
+        <div class="hv-icon">🧬</div>
+        <h4>Your Longevity Score</h4>
+        <p>Track your biological age markers and get personalized recommendations.</p>
+        <div class="hv-stat-row" style="margin-top:8px">
+          <div class="hv-stat-item"><span class="hv-stat">32</span><span class="hv-stat-label">Bio Age</span></div>
+          <div class="hv-stat-item"><span class="hv-stat" style="color:#3a5bd9">↓4</span><span class="hv-stat-label">vs Chrono Age</span></div>
+          <div class="hv-stat-item"><span class="hv-stat">91</span><span class="hv-stat-label">Vitality Score</span></div>
+        </div>
+      </div>
+      <div class="hv-card hv-c2">
+        <div class="hv-icon">💤</div>
+        <h4>Sleep Analysis</h4>
+        <p>Last night: 7h 42m · Deep sleep 22%</p>
+      </div>
+      <div class="hv-card hv-c3">
+        <div class="hv-icon">🥑</div>
+        <h4>Meal Timing</h4>
+        <p>16:8 fasting window · Day 14 streak</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ CATEGORY PILLS ═══════════════ -->
+<div class="categories">
+  <div class="container">
+    <div class="cat-pills">
+      <div class="cat-pill active"><span class="pill-icon">🔥</span> Trending</div>
+      <div class="cat-pill"><span class="pill-icon">🥗</span> Nutrition</div>
+      <div class="cat-pill"><span class="pill-icon">💊</span> Supplements</div>
+      <div class="cat-pill"><span class="pill-icon">🧠</span> Biohacking</div>
+      <div class="cat-pill"><span class="pill-icon">⌚</span> Gadgets</div>
+      <div class="cat-pill"><span class="pill-icon">🏃</span> Fitness</div>
+      <div class="cat-pill"><span class="pill-icon">🧘</span> Mental Health</div>
+      <div class="cat-pill"><span class="pill-icon">🔬</span> Research</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ FEATURED ═══════════════ -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <div class="section-label">Featured</div>
+        <h2>What's Trending This Week</h2>
+      </div>
+      <a href="#" class="see-all">See all articles →</a>
+    </div>
+
+    <div class="featured-grid">
+      <!-- Large card -->
+      <div class="featured-card">
+        <div class="fc-img" style="background: linear-gradient(135deg, #c5e8d8 0%, #e8f5ef 100%);">
+          🫀
+          <div class="fc-img-overlay"></div>
+        </div>
+        <div class="fc-body">
+          <span class="fc-tag">Biohacking</span>
+          <h2 class="fc-title">Zone 2 Cardio: The Most Underrated Tool for Longevity</h2>
+          <p class="fc-desc">Dr. Peter Attia and other longevity researchers are unanimous: low-intensity, sustained cardio does something magic for mitochondria, VO2 max, and metabolic health that no other modality replicates.</p>
+          <div class="fc-meta">
+            <div class="fc-avatar">JL</div>
+            <span>Dr. James Liu</span>
+            <span>·</span>
+            <span>8 min read</span>
+            <span>·</span>
+            <span>Feb 27, 2026</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Small card stack -->
+      <div class="fc-stack">
+        <div class="fc-small">
+          <div class="fc-small-img" style="background:#e8f0fe">🧠</div>
+          <div class="fc-small-body">
+            <span class="fc-small-tag">Supplements</span>
+            <div class="fc-small-title">Lion's Mane in 2026: What the New Clinical Trials Actually Show</div>
+            <div class="fc-small-meta">5 min read · Feb 25</div>
+          </div>
+        </div>
+        <div class="fc-small">
+          <div class="fc-small-img" style="background:#fff8ec">🌅</div>
+          <div class="fc-small-body">
+            <span class="fc-small-tag">Biohacking</span>
+            <div class="fc-small-title">Morning Light Protocol: Why 10 Minutes Outside Changes Everything</div>
+            <div class="fc-small-meta">4 min read · Feb 23</div>
+          </div>
+        </div>
+        <div class="fc-small">
+          <div class="fc-small-img" style="background:#f3e8ff">📊</div>
+          <div class="fc-small-body">
+            <span class="fc-small-tag">Gadgets</span>
+            <div class="fc-small-title">CGM Without Diabetes: A 30-Day Experiment on Metabolic Awareness</div>
+            <div class="fc-small-meta">7 min read · Feb 20</div>
+          </div>
+        </div>
+        <div class="fc-small">
+          <div class="fc-small-img" style="background:#e0f7f4">🥩</div>
+          <div class="fc-small-body">
+            <span class="fc-small-tag">Nutrition</span>
+            <div class="fc-small-title">Protein Timing: Is It Actually Important or Overblown Bro Science?</div>
+            <div class="fc-small-meta">6 min read · Feb 18</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ NUTRITION ═══════════════ -->
+<section class="section section-alt" id="nutrition">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <div class="section-label">🥗 Nutrition & Eating</div>
+        <h2>What to Eat & Why</h2>
+      </div>
+      <a href="#" class="see-all">See all →</a>
+    </div>
+    <div class="topic-grid">
+      <div class="topic-card">
+        <div class="tc-icon tc-green">🫐</div>
+        <h3>The Anti-Inflammatory Diet Guide</h3>
+        <p>How to structure your plate to reduce chronic inflammation — the root of most modern disease.</p>
+        <span class="tc-link">Read guide →</span>
+      </div>
+      <div class="topic-card">
+        <div class="tc-icon tc-amber">⏱️</div>
+        <h3>Intermittent Fasting: Protocols Compared</h3>
+        <p>16:8 vs. OMAD vs. 5:2 — how each protocol affects insulin, autophagy, and body composition.</p>
+        <span class="tc-link">Read guide →</span>
+      </div>
+      <div class="topic-card">
+        <div class="tc-icon tc-blue">🍳</div>
+        <h3>Protein: How Much Do You Actually Need?</h3>
+        <p>The science behind protein targets for muscle, longevity, and metabolic health across age groups.</p>
+        <span class="tc-link">Read guide →</span>
+      </div>
+      <div class="topic-card">
+        <div class="tc-icon tc-teal">🫘</div>
+        <h3>Gut Microbiome: Feed Your Inner Ecosystem</h3>
+        <p>Fiber diversity, fermented foods, and prebiotic strategies that shift your microbiome composition.</p>
+        <span class="tc-link">Read guide →</span>
+      </div>
+      <div class="topic-card">
+        <div class="tc-icon tc-purple">🧊</div>
+        <h3>Metabolic Flexibility: Burn Both Fuels</h3>
+        <p>Train your body to efficiently switch between fat and glucose — the hallmark of metabolic health.</p>
+        <span class="tc-link">Read guide →</span>
+      </div>
+      <div class="topic-card">
+        <div class="tc-icon tc-red">🩸</div>
+        <h3>Blood Sugar Management Without Medication</h3>
+        <p>Diet, exercise, and lifestyle strategies to keep glucose stable and insulin sensitivity high.</p>
+        <span class="tc-link">Read guide →</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ SUPPLEMENTS ═══════════════ -->
+<section class="section" id="supplements">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <div class="section-label">💊 Supplements</div>
+        <h2>Evidence-Ranked Stack Guide</h2>
+      </div>
+      <a href="#" class="see-all">Full database →</a>
+    </div>
+
+    <!-- Table header -->
+    <div style="display:grid; grid-template-columns: 48px 1fr 160px 120px 100px; gap:16px; padding: 0 0 12px; border-bottom: 2px solid var(--gray-200); margin-bottom: 4px;">
+      <div></div>
+      <div style="font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-400)">Supplement</div>
+      <div style="font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-400)">Benefits</div>
+      <div style="font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-400)">Daily Dose</div>
+      <div style="font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gray-400)">Evidence</div>
+    </div>
+
+    <div class="supps-list">
+      <div class="supp-row">
+        <div class="supp-num">01</div>
+        <div style="display:flex;align-items:center;gap:12px">
+          <div class="supp-icon-wrap" style="background:#fff8ec">☀️</div>
+          <div>
+            <div class="supp-name">Vitamin D3 + K2</div>
+            <div class="supp-desc">Fat-soluble vitamin & cofactor combo</div>
+          </div>
+        </div>
+        <div class="supp-benefit"><span class="supp-chip">Immunity</span><span class="supp-chip">Bone</span><span class="supp-chip">Mood</span></div>
+        <div class="supp-dose">2,000–5,000 IU D3<br>100 mcg K2</div>
+        <div class="supp-evidence ev-high"><div class="ev-dot"></div> Strong</div>
+      </div>
+
+      <div class="supp-row">
+        <div class="supp-num">02</div>
+        <div style="display:flex;align-items:center;gap:12px">
+          <div class="supp-icon-wrap" style="background:#e0f7f4">🪨</div>
+          <div>
+            <div class="supp-name">Magnesium Glycinate</div>
+            <div class="supp-desc">Highly bioavailable chelated form</div>
+          </div>
+        </div>
+        <div class="supp-benefit"><span class="supp-chip">Sleep</span><span class="supp-chip">Stress</span><span class="supp-chip">Muscle</span></div>
+        <div class="supp-dose">300–400 mg<br>before bed</div>
+        <div class="supp-evidence ev-high"><div class="ev-dot"></div> Strong</div>
+      </div>
+
+      <div class="supp-row">
+        <div class="supp-num">03</div>
+        <div style="display:flex;align-items:center;gap:12px">
+          <div class="supp-icon-wrap" style="background:#e8f5ef">🐟</div>
+          <div>
+            <div class="supp-name">Omega-3 (EPA/DHA)</div>
+            <div class="supp-desc">Marine-sourced long-chain fatty acids</div>
+          </div>
+        </div>
+        <div class="supp-benefit"><span class="supp-chip">Heart</span><span class="supp-chip">Brain</span><span class="supp-chip">Inflammation</span></div>
+        <div class="supp-dose">2–3g EPA+DHA<br>with meals</div>
+        <div class="supp-evidence ev-high"><div class="ev-dot"></div> Strong</div>
+      </div>
+
+      <div class="supp-row">
+        <div class="supp-num">04</div>
+        <div style="display:flex;align-items:center;gap:12px">
+          <div class="supp-icon-wrap" style="background:#f3e8ff">🍄</div>
+          <div>
+            <div class="supp-name">Lion's Mane Mushroom</div>
+            <div class="supp-desc">Hericium erinaceus extract</div>
+          </div>
+        </div>
+        <div class="supp-benefit"><span class="supp-chip">Cognition</span><span class="supp-chip">NGF</span><span class="supp-chip">Nerve</span></div>
+        <div class="supp-dose">500–1,000 mg<br>morning</div>
+        <div class="supp-evidence ev-med"><div class="ev-dot"></div> Moderate</div>
+      </div>
+
+      <div class="supp-row">
+        <div class="supp-num">05</div>
+        <div style="display:flex;align-items:center;gap:12px">
+          <div class="supp-icon-wrap" style="background:#e8f0fe">🔋</div>
+          <div>
+            <div class="supp-name">Creatine Monohydrate</div>
+            <div class="supp-desc">Most researched sports supplement</div>
+          </div>
+        </div>
+        <div class="supp-benefit"><span class="supp-chip">Strength</span><span class="supp-chip">Brain</span><span class="supp-chip">Energy</span></div>
+        <div class="supp-dose">3–5g<br>anytime daily</div>
+        <div class="supp-evidence ev-high"><div class="ev-dot"></div> Strong</div>
+      </div>
+
+      <div class="supp-row">
+        <div class="supp-num">06</div>
+        <div style="display:flex;align-items:center;gap:12px">
+          <div class="supp-icon-wrap" style="background:#fff3e0">🌿</div>
+          <div>
+            <div class="supp-name">Ashwagandha (KSM-66)</div>
+            <div class="supp-desc">Adaptogenic root standardized extract</div>
+          </div>
+        </div>
+        <div class="supp-benefit"><span class="supp-chip">Cortisol</span><span class="supp-chip">Stress</span><span class="supp-chip">Testosterone</span></div>
+        <div class="supp-dose">300–600 mg<br>with meals</div>
+        <div class="supp-evidence ev-med"><div class="ev-dot"></div> Moderate</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ BIOHACKING ═══════════════ -->
+<section class="section section-alt" id="biohacking">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <div class="section-label">🧠 Biohacking & Longevity</div>
+        <h2>Protocols That Actually Work</h2>
+      </div>
+      <a href="#" class="see-all">See all protocols →</a>
+    </div>
+    <div class="bio-grid">
+      <div class="bio-card">
+        <span class="bio-badge bb-beginner">Beginner Friendly</span>
+        <div class="bio-icon">🌅</div>
+        <h3>Morning Light & Circadian Reset</h3>
+        <p>Getting natural sunlight within 30–60 minutes of waking anchors your circadian rhythm, boosts cortisol at the right time, and improves sleep quality 8–12 hours later.</p>
+        <ul class="bio-steps">
+          <li><div class="bio-step-num">1</div><span>Go outside within 30 min of waking (no sunglasses)</span></li>
+          <li><div class="bio-step-num">2</div><span>Aim for 5–10 min on overcast days, 2–3 min on bright days</span></li>
+          <li><div class="bio-step-num">3</div><span>Combine with a short walk for compounding benefit</span></li>
+        </ul>
+      </div>
+
+      <div class="bio-card">
+        <span class="bio-badge bb-moderate">Moderate</span>
+        <div class="bio-icon">🧊</div>
+        <h3>Cold Exposure Protocol</h3>
+        <p>Deliberate cold therapy activates brown adipose tissue, boosts norepinephrine up to 300%, and builds mental resilience through controlled stress adaptation.</p>
+        <ul class="bio-steps">
+          <li><div class="bio-step-num">1</div><span>Start with 30-sec cold showers, work up to 2–3 min</span></li>
+          <li><div class="bio-step-num">2</div><span>Cold water immersion (11°C / 52°F) is most effective</span></li>
+          <li><div class="bio-step-num">3</div><span>11 min/week total is enough for metabolic benefits</span></li>
+        </ul>
+      </div>
+
+      <div class="bio-card">
+        <span class="bio-badge bb-advanced">Advanced</span>
+        <div class="bio-icon">🫁</div>
+        <h3>Breathwork: CO₂ Tolerance Training</h3>
+        <p>Improving CO₂ tolerance through breath-hold and box breathing exercises enhances oxygen delivery, reduces anxiety, and can lower resting heart rate over time.</p>
+        <ul class="bio-steps">
+          <li><div class="bio-step-num">1</div><span>Morning: 4-7-8 breathing (4 cycles) to activate parasympathetic</span></li>
+          <li><div class="bio-step-num">2</div><span>Box breathing 5.5 sec in / hold / out / hold — 5 min daily</span></li>
+          <li><div class="bio-step-num">3</div><span>Track BOLT score weekly to monitor CO₂ tolerance progress</span></li>
+        </ul>
+      </div>
+
+      <div class="bio-card">
+        <span class="bio-badge bb-moderate">Moderate</span>
+        <div class="bio-icon">💤</div>
+        <h3>Sleep Optimization Stack</h3>
+        <p>Sleep is the highest-leverage biohack. A consistent protocol around temperature, light, and timing can dramatically improve deep sleep and REM quality.</p>
+        <ul class="bio-steps">
+          <li><div class="bio-step-num">1</div><span>Drop bedroom to 18–19°C (65–67°F) for sleep onset</span></li>
+          <li><div class="bio-step-num">2</div><span>Block blue light 2 hrs before bed or use red/dim lighting</span></li>
+          <li><div class="bio-step-num">3</div><span>Magnesium glycinate + L-theanine 30 min before bed</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ GADGETS ═══════════════ -->
+<section class="section" id="gadgets">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <div class="section-label">⌚ Gadgets & Wearables</div>
+        <h2>Health Tech Worth Your Money</h2>
+      </div>
+      <a href="#" class="see-all">All reviews →</a>
+    </div>
+    <div class="gadgets-grid">
+      <div class="gadget-card">
+        <div class="gc-img">💍</div>
+        <div class="gc-body">
+          <div class="gc-brand">Oura</div>
+          <div class="gc-name">Oura Ring Gen 4</div>
+          <div class="gc-score">
+            <span class="gc-stars">★★★★★</span>
+            <span class="gc-score-num">9.4</span>
+          </div>
+          <div style="font-size:.78rem;color:var(--gray-600);margin-top:8px">Best-in-class sleep tracking. HRV, readiness score, and cycle tracking all in a ring.</div>
+          <span class="gc-badge badge-pick">🏆 Editor's Pick</span>
+        </div>
+      </div>
+      <div class="gadget-card">
+        <div class="gc-img">⌚</div>
+        <div class="gc-body">
+          <div class="gc-brand">Whoop</div>
+          <div class="gc-name">Whoop 5.0</div>
+          <div class="gc-score">
+            <span class="gc-stars">★★★★☆</span>
+            <span class="gc-score-num">8.7</span>
+          </div>
+          <div style="font-size:.78rem;color:var(--gray-600);margin-top:8px">Strain and recovery-focused. Excellent for athletes tracking training load and HRV trends.</div>
+          <span class="gc-badge badge-new">✦ New 2026</span>
+        </div>
+      </div>
+      <div class="gadget-card">
+        <div class="gc-img">📡</div>
+        <div class="gc-body">
+          <div class="gc-brand">Levels Health</div>
+          <div class="gc-name">CGM Program</div>
+          <div class="gc-score">
+            <span class="gc-stars">★★★★☆</span>
+            <span class="gc-score-num">8.9</span>
+          </div>
+          <div style="font-size:.78rem;color:var(--gray-600);margin-top:8px">Continuous glucose monitor + app insights. Reveals how food, stress, and sleep impact blood sugar.</div>
+          <span class="gc-badge badge-hot">🔥 Trending</span>
+        </div>
+      </div>
+      <div class="gadget-card">
+        <div class="gc-img">💡</div>
+        <div class="gc-body">
+          <div class="gc-brand">Muse</div>
+          <div class="gc-name">Muse S (Gen 2)</div>
+          <div class="gc-score">
+            <span class="gc-stars">★★★★☆</span>
+            <span class="gc-score-num">8.1</span>
+          </div>
+          <div style="font-size:.78rem;color:var(--gray-600);margin-top:8px">EEG headband for guided meditation with real-time brain feedback. Great for sleep and focus training.</div>
+          <span class="gc-badge badge-value">💰 Best Value</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ STATS BANNER ═══════════════ -->
+<div class="container">
+  <div class="stats-banner">
+    <div class="stat-item">
+      <span class="stat-num">340+</span>
+      <span class="stat-label">Evidence-Based Articles</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">85k</span>
+      <span class="stat-label">Monthly Readers</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">120+</span>
+      <span class="stat-label">Studies Referenced Monthly</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">4.9★</span>
+      <span class="stat-label">Average Reader Rating</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ NEWSLETTER ═══════════════ -->
+<div class="container">
+  <div class="newsletter">
+    <div class="nl-icon">📬</div>
+    <h2>The Weekly Vitalis Digest</h2>
+    <p>Every Sunday — one deep-dive, five quick wins, and the week's best research. No fluff, no sales pitches.</p>
+    <form class="nl-form" onsubmit="return false">
+      <input class="nl-input" type="email" placeholder="your@email.com" />
+      <button class="nl-btn">Subscribe</button>
+    </form>
+    <div class="nl-note">14,000+ readers · Unsubscribe anytime · No spam, ever</div>
+  </div>
+</div>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo">Vita<span>lis</span></div>
+        <p>Science-backed health content for people who want to live longer, think clearer, and feel better every day. No pseudoscience, no BS.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Topics</h4>
+        <ul>
+          <li><a href="#">Nutrition</a></li>
+          <li><a href="#">Supplements</a></li>
+          <li><a href="#">Biohacking</a></li>
+          <li><a href="#">Gadgets</a></li>
+          <li><a href="#">Fitness</a></li>
+          <li><a href="#">Mental Health</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="#">Supplement Database</a></li>
+          <li><a href="#">Protocol Library</a></li>
+          <li><a href="#">Gadget Reviews</a></li>
+          <li><a href="#">Research Digest</a></li>
+          <li><a href="#">Free Tools</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Our Methodology</a></li>
+          <li><a href="#">Medical Advisory</a></li>
+          <li><a href="#">Write for Us</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Vitalis. For informational purposes only — not medical advice.</span>
+      <div class="footer-socials">
+        <div class="social-icon">𝕏</div>
+        <div class="social-icon">in</div>
+        <div class="social-icon">▶</div>
+        <div class="social-icon">📷</div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
