@@ -264,8 +264,9 @@
     .gadget-card:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(0,0,0,.07); }
     .gc-img {
       height: 130px; display: flex; align-items: center; justify-content: center;
-      font-size: 3rem; background: var(--gray-50);
+      font-size: 3rem; background: var(--gray-50); overflow: hidden;
     }
+    .gc-img img { width: 100%; height: 100%; object-fit: cover; }
     .gc-body { padding: 16px; }
     .gc-brand { font-size: 0.68rem; font-weight: 700; text-transform: uppercase;
       letter-spacing: .08em; color: var(--gray-400); margin-bottom: 4px; }
@@ -809,7 +810,7 @@
     </div>
     <div class="gadgets-grid">
       <div class="gadget-card">
-        <div class="gc-img">💍</div>
+        <div class="gc-img"><img src="images/oura-ring-gen4.jpg" alt="Oura Ring Gen 4" loading="lazy" /></div>
         <div class="gc-body">
           <div class="gc-brand">Oura</div>
           <div class="gc-name">Oura Ring Gen 4</div>
@@ -822,7 +823,7 @@
         </div>
       </div>
       <div class="gadget-card">
-        <div class="gc-img">⌚</div>
+        <div class="gc-img"><img src="images/whoop-5.png" alt="Whoop 5.0" loading="lazy" /></div>
         <div class="gc-body">
           <div class="gc-brand">Whoop</div>
           <div class="gc-name">Whoop 5.0</div>
@@ -835,7 +836,7 @@
         </div>
       </div>
       <div class="gadget-card">
-        <div class="gc-img">📡</div>
+        <div class="gc-img"><img src="images/levels-cgm.jpg" alt="Levels CGM Program" loading="lazy" /></div>
         <div class="gc-body">
           <div class="gc-brand">Levels Health</div>
           <div class="gc-name">CGM Program</div>
@@ -848,7 +849,7 @@
         </div>
       </div>
       <div class="gadget-card">
-        <div class="gc-img">💡</div>
+        <div class="gc-img"><img src="images/muse-s-gen2.jpg" alt="Muse S Gen 2" loading="lazy" /></div>
         <div class="gc-body">
           <div class="gc-brand">Muse</div>
           <div class="gc-name">Muse S (Gen 2)</div>
